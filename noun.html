@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>word</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
+    <link rel="stylesheet" href="loader.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.2/html2pdf.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/qrious/dist/qrious.min.js"></script>
+  <link rel="stylesheet" href="styles/noun.css">
+    
+</head>
+<body>
+    <a href="words.html"><i class="fa fa-arrow-left"></i></a>
+
+    <div class="loader-section">
+        <div class="loader" id="loader"></div>
+    </div>
+
+    <div class="details" id="container">
+        <div class="head">
+            <canvas id="qrcode"></canvas>
+            <h1 id="title">noun</h1>
+        </div>
+        <p id="word">word: </p>
+        <p id="type">type: </p>
+        <p id="translation">translation: </p>
+        <p id="phonetic">phonetic: </p>
+        <p id="example">example: </p>
+        <p id="gender">gender: </p>
+        <p id="singular">singular: </p>
+        <p id="plural">plural: </p>
+        <p id="details">details: </p>
+        <div class="button-div">
+            <button id="generate-pdf">Generate PDF</button>
+        </div>
+    </div>
+
+    <script>
+        const params = new URLSearchParams(window.location.search);
+        const id = params.get('id');
+        const title = document.getElementById('title');
+        const wordP = document.getElementById('word');
+        const typeP = document.getElementById('type');
+        const translationP = document.getElementById('translation');
+        const phoneticP = document.getElementById('phonetic');
+        const exampleP = document.getElementById('example');
+        const genderP = document.getElementById('gender');
+        const singularP = document.getElementById('singular');
+        const pluralP = document.getElementById('plural');
+        const detailsP = document.getElementById('details');
+        const loader = document.getElementById('loader');
+        const container = document.getElementById('container');
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyBOGC8qinBmX_F4msMrrxV3VgbwYt6mtg8",
+            authDomain: "darija2024-database.firebaseapp.com",
+            databaseURL: "https://darija2024-database-default-rtdb.firebaseio.com",
+            projectId: "darija2024-database",
+            storageBucket: "darija2024-database.appspot.com",
+            messagingSenderId: "621215461163",
+            appId: "1:621215461163:web:d594741683e99c742fdf6e",
+            measurementId: "G-VYFCV3GLZN"
+        };
+
+
+        const app = firebase.initializeApp(firebaseConfig);
+        const database = firebase.database(app);
+        const wordRef = database.ref('darija-words');
+        var editUrl = '';
+
+        wordRef.once('value', (snapshot) => {
+            const data = snapshot.val();
+            const wordData = data[id];
+            document.title = `${wordData['word']} | ${wordData['type']}`;
+            title.textContent = wordData['word'];
+            wordP.textContent = `word: ${wordData['word']}`;
+            typeP.textContent = `type: ${wordData['type']}`;
+            translationP.textContent = `translation: ${wordData['translation']}`;
+            phoneticP.textContent = `phonetic: ${wordData['phonetic']}`;
+            exampleP.textContent = `example: ${wordData['example']}`;
+            genderP.textContent = `gender: ${wordData['gender']}`;
+            singularP.textContent = `singular: ${wordData['singular']}`;
+            pluralP.textContent = `plural: ${wordData['plural']}`;
+            detailsP.textContent = `details: ${wordData['details']}`;
+            editUrl = `addNewNoun.html?word=${encodeURIComponent(wordData['word'])}&translation=${encodeURIComponent(wordData['translation'])}&type=${encodeURIComponent(wordData['type'])}&phonetic=${encodeURIComponent(wordData['phonetic'])}&example=${encodeURIComponent(wordData['example'])}&gender=${encodeURIComponent(wordData['gender'])}&singular=${encodeURIComponent(wordData['singular'])}&plural=${encodeURIComponent(wordData['plural'])}&details=${encodeURIComponent(wordData['details'])}`;
+
+            loader.style.display = 'none';
+            container.style.display = 'grid';
+
+            // Set current date and time for PDF
+            const now = new Date();
+            generateQRCode(`word=${encodeURIComponent(wordData['word'])}&translation=${encodeURIComponent(wordData['translation'])}&type=${encodeURIComponent(wordData['type'])}&phonetic=${encodeURIComponent(wordData['phonetic'])}&example=${encodeURIComponent(wordData['example'])}&gender=${encodeURIComponent(wordData['gender'])}&singular=${encodeURIComponent(wordData['singular'])}&plural=${encodeURIComponent(wordData['plural'])}&details=${encodeURIComponent(wordData['details'])}@Date:${now.toLocaleDateString()}Time:${now.toLocaleTimeString()}`);
+        });
+
+        document.getElementById('generate-pdf').addEventListener('click', () => {
+            document.getElementById('generate-pdf').style.display = 'none';
+            const element = document.getElementById('container');
+            html2pdf().from(element).save(`${title.textContent}.pdf`);
+        });
+
+        function generateQRCode(text) {
+            if (typeof text !== 'string' || text.trim() === '') {
+                console.error('Invalid input data. Must be a non-empty string.');
+                alert('Invalid input data. Must be a non-empty string.');
+                return;
+            }
+            try {
+                var qr = new QRious({
+                    element: document.getElementById('qrcode'),
+                    value: text,
+                    size: 200
+                });
+            } catch (e) {
+                console.error('Unexpected error:', e);
+                alert('Unexpected error. Check console for details.');
+            }
+        }
+    </script>
+</body>
+</html>

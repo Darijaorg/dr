@@ -1,0 +1,126 @@
+
+ @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap');
+ *{
+     font-family: 'Poppins', sans-serif;
+ }
+ body{
+     display: flex;
+     flex-direction: column;
+     justify-content: center;
+     align-items: center;
+     height: 100vh;
+ }
+ #logo{
+     width: 200px;
+ }
+ h1{
+     text-align: center;
+ }
+ div{
+     width: 100%;
+     display: flex;
+     justify-content: center;
+     align-items: center;
+    
+ }
+ 
+ 
+ 
+ a{
+     text-decoration: none;
+     color: black;
+     border: solid 1px black;
+     padding: 10px;
+     margin: 5px;
+     width: 8rem;
+     text-align: center;
+     border-radius: 20px;
+     transition: all .3s;
+     
+ }
+ 
+ a:hover{
+     color: white;
+     background-color: black;
+     transition: all .3s;
+ }
+ 
+ footer{
+     display: flex;
+     flex-direction: column;
+     align-items: center;
+     justify-content: center;
+     width: 100%;
+     margin: 100px auto;
+     
+ }
+ 
+ footer label , a-footer{
+     font-family: "Poppins", sans-serif;
+     color: rgb(112, 112, 112);
+     text-align: center;
+     text-decoration: none;
+     transition: all .3s;
+ }
+ 
+ a-footer:hover{
+     color: #e0a761;
+ 
+ }
+ 
+ .btn-donate{
+     text-decoration: none;
+     
+     border: solid 1px #9B2C2C;
+     padding: 10px;
+     margin: 5px;
+     width: 8rem;
+     text-align: center;
+     border-radius: 20px;
+     transition: all .3s;
+     background-color: #FECACA;
+     color: #9B2C2C;
+     gap: 10px;
+     
+ }
+ 
+ .btn-donate:hover{
+     background-color: #F87171;
+     filter: drop-shadow(0px 0px 5px  #F87171);
+ 
+ 
+ }
+ .btn-hdar{
+     text-decoration: none;
+     
+     border: solid 1px #00CB5E;
+     padding: 10px;
+     margin: 5px;
+     width: 8rem;
+     text-align: center;
+     border-radius: 20px;
+     transition: all .3s;
+     background-color: white;
+     color: #00CB5E;
+     gap: 10px;
+ 
+     display: flex;
+     justify-content: center;
+     align-items: center;
+ }
+ .btn-hdar img{
+ width: 25px;
+ border-radius: 50px;
+ padding: 1px;
+ background: white;
+ }
+ 
+ .btn-hdar:hover{
+ 
+     background-color: #00CB5E;
+     filter: drop-shadow(0px 0px 5px  #00CB5E );
+ 
+ 
+ }
+ 
+ 

@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>darijaWords2024</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
+    <link rel="stylesheet" href="loader.css">
+    <link rel="shortcut icon" href="https://i.ibb.co/QpG1Q6n/Darija-logo.png" type="image/x-icon">
+    <link rel="stylesheet" href="styles\words.css">
+
+</head>
+<body>
+    <a href="index.html"><i class="fa fa-arrow-left"></i> َ</a>
+  
+    
+    <h1 id="title">Darija-database2024</h1>
+    <div class="loader-section">
+        <div class="loader" id="loader"></div>
+
+    </div>
+
+
+    <section class="words" id="words">
+        
+<div id="btns">
+    <button id="nounsBtn" >nouns</button>
+    <button id="verbsBtn">verbs</button>
+    <button id="pronounsBtn">pronouns</button>
+    <button id="adjsBtn">adjs</button>
+  </div>
+        <div id="nouns">
+          <label id="nounsLbl">nouns:</label>
+        </div>
+        
+        <div id="verbs">
+          <label id="verbsLbl">verbs:</label>
+        </div>
+
+        <div id="pronouns">
+          <label id="pronounsLbl">pronouns:</label>
+        </div>
+        <div id="adjs">
+          <label id="adjsLbl">adjs:</label>
+        </div>
+    </section>
+
+
+   
+    <script>
+        //DOM
+        const nounsDiv = document.getElementById('nouns');
+        const verbsDiv = document.getElementById('verbs');
+        const pronounsDiv = document.getElementById('pronouns');
+        const adjsDiv = document.getElementById('adjs');
+
+        const loader = document.getElementById('loader');
+        const container = document.getElementById('words');
+
+        // Your Firebase configuration
+        const firebaseConfig = {
+      apiKey: "AIzaSyBOGC8qinBmX_F4msMrrxV3VgbwYt6mtg8",
+      authDomain: "darija2024-database.firebaseapp.com",
+      databaseURL: "https://darija2024-database-default-rtdb.firebaseio.com",
+      projectId: "darija2024-database",
+      storageBucket: "darija2024-database.appspot.com",
+      messagingSenderId: "621215461163",
+      appId: "1:621215461163:web:d594741683e99c742fdf6e",
+      measurementId: "G-VYFCV3GLZN"
+    };
+    var wordsData = [] ;
+    var verbs = [];
+    var adjs = [];
+    var nouns = [];
+    var pronouns = [];
+
+    
+
+        // Initialize Firebase
+        const app = firebase.initializeApp(firebaseConfig);
+        const database = firebase.database(app);
+
+        // Reference to your data in Firebase
+        const wordRef = database.ref('darija-words');
+
+        // Fetch data from Firebase
+        wordRef.once('value', (snapshot) => {
+            const data = snapshot.val();
+            
+           
+        
+
+
+            
+            
+           for(key in data){
+            
+            if(key[2] === 'v'){
+               
+                const newElement = document.createElement('p');
+                newElement.innerHTML = `${key.substring(0 , 6)}-<span>${data[key]['word']}</span>-${data[key]['translation']}`;
+                verbsDiv.appendChild(newElement);
+
+
+                verbs.push(key)
+                wordsData.push(key)
+            }
+            else if(key[2] ==='n') {
+                
+                const newElement = document.createElement('p');
+                newElement.innerHTML = `${key.substring(0 , 6)}-<span>${data[key]['word']}</span>-${data[key]['translation']}`;
+
+                nounsDiv.appendChild(newElement);
+
+                nouns.push(key)
+                wordsData.push(key)
+
+
+            }
+            else if (key[2] === 'p') {
+                
+                const newElement = document.createElement('p');
+                newElement.innerHTML = `${key.substring(0 , 9)}-<span>${data[key]['word']}</span>-${data[key]['translation']}`;
+
+                pronounsDiv.appendChild(newElement);
+
+                pronouns.push(key)
+                wordsData.push(key)
+
+
+            }
+            else if(key[2] === 'a'){
+                
+                const newElement = document.createElement('p');
+                newElement.innerHTML = `${key.substring(0 , 5)}-<span>${data[key]['word']}</span>-${data[key]['translation']}`;
+
+                adjsDiv.appendChild(newElement);
+
+                adjs.push(key)
+                wordsData.push(key)
+
+
+            }
+ 
+           }
+  loader.style.display = 'none'
+  container.style.display = 'grid'
+  $('#title').text(`Darija-database2024(${wordsData.length}) :`);
+
+  $('#nounsLbl').text(`Nouns (${nouns.length}) :`);
+
+  $('#verbsLbl').text(`Verbs (${verbs.length}) :`);
+
+  $('#adjsLbl').text(`Adjs (${adjs.length}) :`);
+
+  $('#pronounsLbl').text(`Pronouns (${pronouns.length}) :`);
+
+       
+        });
+       
+        
+       
+
+        
+        //styles
+       // Assuming the paragraphs are added to a container with an ID of 'container'
+       container.addEventListener('click', function(event) {
+    // Check if the clicked element is a <p> or inside a <p>
+    let targetElement = event.target;
+
+    // If the clicked element is a <span>, find the closest <p>
+    if (targetElement.tagName.toLowerCase() === 'span') {
+        targetElement = targetElement.closest('p');
+    }
+
+    // Now check if the target is a <p>
+    if (targetElement && targetElement.tagName.toLowerCase() === 'p') {
+        var text = targetElement.textContent;
+
+        if (text[2] === 'v') {
+            window.location.href = `verb.html?id=${text}`;
+        } 
+        else if (text[2] === 'n') {
+            window.location.href = `noun.html?id=${text}`;
+        } 
+        else {
+            window.location.href = `word.html?id=${text}`;
+        }
+    }
+});
+
+
+
+
+$('#verbsBtn').on('click' , function(){
+    nounsDiv.style.display = 'none'
+    pronounsDiv.style.display = 'none'
+    adjsDiv.style.display = 'none'
+    verbsDiv.style.display = 'block'
+    $('Button').css('background-color', 'white');
+    $('Button').css('color', 'black');
+    $(this).css('background-color', 'black');
+    $(this).css('color', 'white');
+
+    
+})
+$('#nounsBtn').on('click' , function(){
+    nounsDiv.style.display = 'block'
+    pronounsDiv.style.display = 'none'
+    adjsDiv.style.display = 'none'
+    verbsDiv.style.display = 'none'
+    $('Button').css('background-color', 'white');
+    $('Button').css('color', 'black');
+    $(this).css('background-color', 'black');
+    $(this).css('color', 'white');
+    
+})
+$('#pronounsBtn').on('click' , function(){
+    nounsDiv.style.display = 'none'
+    pronounsDiv.style.display = 'block'
+    adjsDiv.style.display = 'none'
+    verbsDiv.style.display = 'none'
+
+    $('Button').css('background-color', 'white');
+    $('Button').css('color', 'black');
+    $(this).css('background-color', 'black');
+    $(this).css('color', 'white');
+    
+})
+$('#adjsBtn').on('click' , function(){
+    nounsDiv.style.display = 'none'
+    pronounsDiv.style.display = 'none'
+    adjsDiv.style.display = 'block'
+    verbsDiv.style.display = 'none'
+    $('Button').css('background-color', 'white');
+    $('Button').css('color', 'black');
+    $(this).css('background-color', 'black');
+    $(this).css('color', 'white');
+
+    
+})
+
+
+
+
+    </script>
+</body>
+</html>

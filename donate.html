@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Donate</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="shortcut icon" href="https://i.ibb.co/QpG1Q6n/Darija-logo.png" type="image/x-icon">
+    <link rel="stylesheet" href="styles/donate.css">
+</head>
+<body>
+    <a href="index.html"><i class="fa fa-arrow-left"></i></a>
+
+    <p class="pa">
+        TANHAWL DAYMEN NKHALI PROJIYAT DAYLI FABOUR W'OPEN SOURCE. ILA BGHITI DÂAMNI BACH N'ZEED B'LPROJYAT DYALI LQODAM !!! 
+        <br> 
+        I always try to make my projects free and open source, if you want support me to make my projects better.
+    </p>
+
+    <div>
+        <img id="logo" src="https://i.ibb.co/QpG1Q6n/Darija-logo.png" alt="Darija Logo">
+        <button id="maroc-pay">
+            <img id="marocpayImg" src="https://marocpay.ma/wp-content/uploads/2021/09/Group-119@2x.png" alt="MarocPay">0768467864
+        </button>
+        <p>or</p>
+        <button>RIB : 859810000000000660432179</button>
+    </div>
+
+    
+    <script>
+        $('#maroc-pay').hover(
+            function() {
+                $('#marocpayImg').attr('src', "https://marocpay.ma/wp-content/uploads/2021/09/MarocPay-Logo-red.png");
+            },
+            function() {
+                $('#marocpayImg').attr('src', "https://marocpay.ma/wp-content/uploads/2021/09/Group-119@2x.png");
+            }
+        );
+    </script>
+</body>
+</html>
