@@ -104,4 +104,26 @@
             bottom: 0;
             width: 100%;
         }
+
+
+        .prounouns{
+            display: flex;
+            flex-direction: column;
+            gap: 0px;
+            padding: 10px;
+            border-radius: 10px;
+            border: solid 1px black;
+            margin-top: 10px;
+        }
+        
+        
+        .prounouns p{
+            margin: 0;
+        }
+
+
+        span{
+            color: red;
+        }
+        
   
