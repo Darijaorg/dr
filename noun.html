@@ -146,11 +146,11 @@
             typeP.textContent = `type: ${wordData['type']}`;
             translationP.textContent = `translation: ${wordData['translation']}`;
             phoneticP.textContent = `phonetic: ${wordData['phonetic']}`;
-            exampleP.textContent = `example: ${wordData['example']}`;
+            exampleP.innerHTML = `example: ${wordData['example']}`;
             genderP.textContent = `gender: ${wordData['gender']}`;
             singularP.textContent = `singular: ${wordData['singular']}`;
             pluralP.textContent = `plural: ${wordData['plural']}`;
-            detailsP.textContent = `details: ${wordData['details']}`;
+            detailsP.innerHTML = `details: ${wordData['details']}`;
             editUrl = `addNewNoun.html?word=${encodeURIComponent(wordData['word'])}&translation=${encodeURIComponent(wordData['translation'])}&type=${encodeURIComponent(wordData['type'])}&phonetic=${encodeURIComponent(wordData['phonetic'])}&example=${encodeURIComponent(wordData['example'])}&gender=${encodeURIComponent(wordData['gender'])}&singular=${encodeURIComponent(wordData['singular'])}&plural=${encodeURIComponent(wordData['plural'])}&details=${encodeURIComponent(wordData['details'])}`;
 
 

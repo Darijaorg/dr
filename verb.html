@@ -139,8 +139,8 @@
             wordP.textContent = `word: ${wordData['word']}`;
             translationP.textContent = `translation: ${wordData['translation']}`;
             phoneticP.textContent = `phonetic: ${wordData['phonetic']}`;
-            exampleP.textContent = `example: ${wordData['example']}`;
-            detailsP.textContent = `details: ${wordData['details']}`;
+            exampleP.innerHTML = `example: ${wordData['example']}`;
+            detailsP.innerHTML = `details: ${wordData['details']}`;
 
             // Dynamic function to wrap specified number of letters from the start and end of a word
             function wrapLetters(word, numStart, numEnd) {
