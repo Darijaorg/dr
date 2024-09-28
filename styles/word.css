@@ -16,8 +16,8 @@ i:hover{
     cursor: pointer;
 }
 a{
-    color: white;
-    cursor: auto;
+    color: rgb(211, 36, 36);
+    cursor: pointer;
 }
 .details{
     margin-top: 50px;

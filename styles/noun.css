@@ -18,9 +18,9 @@
             cursor: pointer;
         }
 
-        a {
-            color: white;
-            cursor: auto;
+        a{
+            color: rgb(211, 36, 36);
+            cursor: pointer;
         }
 
         canvas {

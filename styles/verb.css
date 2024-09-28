@@ -11,6 +11,10 @@
             font-size: 25px;
             color: black;
         }
+        a{
+            color: rgb(211, 36, 36);
+            cursor: pointer;
+        }
         #title {
             text-align: center;
         }
