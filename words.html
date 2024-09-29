@@ -32,6 +32,7 @@
     <button id="verbsBtn">verbs</button>
     <button id="pronounsBtn">pronouns</button>
     <button id="adjsBtn">adjs</button>
+    <button id="advsBtn">adverbs</button>
   </div>
         <div id="nouns">
           <label id="nounsLbl">nouns:</label>
@@ -47,6 +48,9 @@
         <div id="adjs">
           <label id="adjsLbl">adjs:</label>
         </div>
+        <div id="adverbs">
+            <label id="adverbsLbl">adverbs:</label>
+          </div>
     </section>
 
 
@@ -57,6 +61,7 @@
         const verbsDiv = document.getElementById('verbs');
         const pronounsDiv = document.getElementById('pronouns');
         const adjsDiv = document.getElementById('adjs');
+        const advsDiv = document.getElementById('adverbs');
 
         const loader = document.getElementById('loader');
         const container = document.getElementById('words');
@@ -75,6 +80,7 @@
     var wordsData = [] ;
     var verbs = [];
     var adjs = [];
+    var advs = [];
     var nouns = [];
     var pronouns = [];
 
@@ -133,7 +139,7 @@
 
 
             }
-            else if(key[2] === 'a'){
+            else if(key.substring(2, 5) === 'adj'){
                 
                 const newElement = document.createElement('p');
                 newElement.innerHTML = `${key.substring(0 , 5)}-<span>${data[key]['word']}</span>-${data[key]['translation']}`;
@@ -145,6 +151,24 @@
 
 
             }
+
+
+            
+//advsDiv
+            else if(key.substring(2, 5) === 'adv'){
+                
+                const newElement = document.createElement('p');
+                newElement.innerHTML = `${key.substring(0 , 5)}-<span>${data[key]['word']}</span>-${data[key]['translation']}`;
+
+                advsDiv.appendChild(newElement);
+
+                advs.push(key)
+                wordsData.push(key)
+
+
+            }
+
+
  
            }
   loader.style.display = 'none'
@@ -158,6 +182,8 @@
   $('#adjsLbl').text(`Adjs (${adjs.length}) :`);
 
   $('#pronounsLbl').text(`Pronouns (${pronouns.length}) :`);
+
+  $('#adverbsLbl').text(`Adverbs (${advs.length}) :`);
 
        
         });
@@ -201,6 +227,8 @@ $('#verbsBtn').on('click' , function(){
     pronounsDiv.style.display = 'none'
     adjsDiv.style.display = 'none'
     verbsDiv.style.display = 'block'
+    advsDiv.style.display = 'none'
+
     $('Button').css('background-color', 'white');
     $('Button').css('color', 'black');
     $(this).css('background-color', 'black');
@@ -213,6 +241,8 @@ $('#nounsBtn').on('click' , function(){
     pronounsDiv.style.display = 'none'
     adjsDiv.style.display = 'none'
     verbsDiv.style.display = 'none'
+    advsDiv.style.display = 'none'
+
     $('Button').css('background-color', 'white');
     $('Button').css('color', 'black');
     $(this).css('background-color', 'black');
@@ -224,6 +254,8 @@ $('#pronounsBtn').on('click' , function(){
     pronounsDiv.style.display = 'block'
     adjsDiv.style.display = 'none'
     verbsDiv.style.display = 'none'
+    advsDiv.style.display = 'none'
+
 
     $('Button').css('background-color', 'white');
     $('Button').css('color', 'black');
@@ -235,6 +267,23 @@ $('#adjsBtn').on('click' , function(){
     nounsDiv.style.display = 'none'
     pronounsDiv.style.display = 'none'
     adjsDiv.style.display = 'block'
+    verbsDiv.style.display = 'none'
+    advsDiv.style.display = 'none'
+
+    $('Button').css('background-color', 'white');
+    $('Button').css('color', 'black');
+    $(this).css('background-color', 'black');
+    $(this).css('color', 'white');
+
+    
+})
+
+
+$('#advsBtn').on('click' , function(){
+    nounsDiv.style.display = 'none'
+    pronounsDiv.style.display = 'none'
+    adjsDiv.style.display = 'none'
+    advsDiv.style.display = 'block'
     verbsDiv.style.display = 'none'
     $('Button').css('background-color', 'white');
     $('Button').css('color', 'black');

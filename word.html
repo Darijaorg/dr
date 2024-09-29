@@ -28,6 +28,7 @@
     <p id="type">type : </p>
     <p id="translation">translation : </p>
     <p id="details">details : </p>
+    <p id="source">source : </p>
 
 
 </div>
@@ -47,6 +48,7 @@
          const typeP = document.getElementById('type')
          const translationP = document.getElementById('translation')
          const detailsP = document.getElementById('details')
+         const sourceP = document.getElementById('source')
 
          const loader = document.getElementById('loader');
         const container = document.getElementById('container');
@@ -85,7 +87,8 @@
             typeP.textContent = `type : ${wordData['type']}`
             translationP.textContent = `translation : ${wordData['translation']}`
             detailsP.innerHTML = `details : ${wordData['details']}`
-           
+            sourceP.innerHTML = wordData['source'] !== undefined ? `source: ${wordData['source']}` : 'source: unknown';
+
         
         loader.style.display = 'none'
         container.style.display = 'grid'
