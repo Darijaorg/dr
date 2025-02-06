@@ -95,3 +95,13 @@ button:hover {
 button img {
     width: 40px;
 }
+
+
+#buymeacoffee{
+position:static;
+}
+
+div .bmc-qr{
+    width: 200px;
+    height: 200px;
+}
