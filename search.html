@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Darija Search</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+        }
+        .search-container {
+            margin-bottom: 20px;
+        }
+        input, select {
+            padding: 8px;
+            margin: 5px;
+        }
+        button {
+            padding: 8px 16px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        .result {
+            border: 1px solid #ddd;
+            padding: 15px;
+            margin: 10px 0;
+            border-radius: 5px;
+        }
+        .pronouns {
+            margin-left: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="search-container">
+        <input type="text" id="searchQuery" placeholder="Enter search term (e.g., brother)">
+        <select id="typeFilter">
+            <option value="">All Types</option>
+            <option value="noun">Noun</option>
+            <!-- Add more type options as needed -->
+        </select>
+        <button onclick="performSearch()">Search</button>
+    </div>
+    
+    <div id="results"></div>
+
+    <script>
+        async function performSearch() {
+            const query = document.getElementById('searchQuery').value;
+            const type = document.getElementById('typeFilter').value;
+            const resultsDiv = document.getElementById('results');
+            
+            if (!query) {
+                resultsDiv.innerHTML = '<p>Please enter a search term</p>';
+                return;
+            }
+
+            try {
+                const url = new URL('https://darijaorg-api.vercel.app/search');
+                url.searchParams.append('q', query);
+                if (type) url.searchParams.append('type', type);
+
+                resultsDiv.innerHTML = '<p>Loading...</p>';
+
+                const response = await fetch(url);
+                const data = await response.json();
+
+                if (!response.ok) {
+                    throw new Error('API request failed');
+                }
+
+                displayResults(data.data);
+            } catch (error) {
+                resultsDiv.innerHTML = `<p>Error: ${error.message}</p>`;
+            }
+        }
+
+        function displayResults(data) {
+            const resultsDiv = document.getElementById('results');
+            resultsDiv.innerHTML = '';
+
+            if (!data || Object.keys(data).length === 0) {
+                resultsDiv.innerHTML = '<p>No results found</p>';
+                return;
+            }
+
+            for (const [key, value] of Object.entries(data)) {
+                const resultHTML = `
+                    <div class="result">
+                        <h2>${value.word} (${value.type})</h2>
+                        <p>Translation: ${value.translation}</p>
+                        <p>Details: ${value.details}</p>
+                        <p>Example: ${value.example}</p>
+                        <p>Gender: ${value.gender}</p>
+                        <p>Phonetic: ${value.phonetic}</p>
+                        <p>Plural: ${value.plural}</p>
+                        <p>Singular: ${value.singular}</p>
+                        
+                        <h3>Pronouns:</h3>
+                        <div class="pronouns">
+                            ${formatPronouns(value.prounouns)}
+                        </div>
+                        
+                        <h3>Plural Pronouns:</h3>
+                        <div class="pronouns">
+                            ${formatPronouns(value['prounouns-plural'])}
+                        </div>
+                    </div>
+                `;
+                resultsDiv.innerHTML += resultHTML;
+            }
+        }
+
+        function formatPronouns(pronouns) {
+            if (!pronouns) return 'None';
+            return Object.entries(pronouns)
+                .map(([key, value]) => `${key}: ${value}`)
+                .join('<br>');
+        }
+
+        // Add enter key listener
+        document.getElementById('searchQuery').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                performSearch();
+            }
+        });
+    </script>
+</body>
+</html>
