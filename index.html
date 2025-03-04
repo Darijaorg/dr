@@ -6,22 +6,84 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Darija-database2024</title>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+   
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
+    
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 <link rel="shortcut icon" href="https://i.ibb.co/QpG1Q6n/Darija-logo.png" type="image/x-icon">
 <link rel="stylesheet" href="styles/index.css">
+<style>
+    .notice-box {
+        display: none;
+        background-color: #fffef2; /* Subtle yellow, not too bright */
+        border: 2px solid #e6e2c8;
+        border-radius: 8px;
+        padding: 20px;
+        max-width: 600px;
+        margin: 20px auto;
+        justify-content: center;
+        align-items: center;
+        font-family: Arial, sans-serif;
+        color: #333;
+        width: 300px;
+        
+    }
+
+    .notice-box i {
+        color: #d4c107; /* Slightly muted yellow for the icon */
+        margin-right: 10px;
+    }
+
+    .notice-box p {
+        margin: 0;
+        line-height: 1.6;
+        font-size: 12px;
+    }
+
+    .notice-box a {
+        color: #d4c107;
+        text-decoration: none;
+        font-weight: bold;
+    }
+
+    .notice-box a:hover {
+        text-decoration: underline;
+        background-color: transparent;
+    }
+
+    .link{
+    
+     
+     border: 0;
+    padding: 0;
+     margin: 0px;
+     width: 0rem;
+     text-align: 0;
+     border-radius: 0;
+     transition: 0;
+     
+
+    }
+</style>
 </head>
 <body id="body">
     <img id="logo" src="https://i.ibb.co/QpG1Q6n/Darija-logo.png" alt="">
     <h1>Darija Database 2024</h1>
-    
 
-    <div>
-        <a href="words.html"><i class="fa fa-list"></i>  darija words   </a>
+    <div class="notice-box" id="notice-box">
+     
+    </div>
+
+    <div class="actions">
+        <a href="words.html"><i class="fa fa-list"></i> Database</a>
+        <a href="search.html"><i class="fa fa-search"></i> Search</a>
     </div>
     <footer>
 
         <label>by Abdelhakim Sahifa</label>
 
+        
         <a class="a-footer" href="https://github.com/abdelhakim-sahifa" target="_blank" rel="noopener">
             <i  class="fab fa-github" ></i> GitHub
         </a>
@@ -44,6 +106,38 @@
      </footer>
 
      
+
+     <script type="module">
+
+
+const firebaseConfig = {
+            apiKey: "AIzaSyBOGC8qinBmX_F4msMrrxV3VgbwYt6mtg8",
+            authDomain: "darija2024-database.firebaseapp.com",
+            databaseURL: "https://darija2024-database-default-rtdb.firebaseio.com",
+            projectId: "darija2024-database",
+            storageBucket: "darija2024-database.appspot.com",
+            messagingSenderId: "621215461163",
+            appId: "1:621215461163:web:d594741683e99c742fdf6e",
+            measurementId: "G-VYFCV3GLZN"
+        };
+
+        // Initialize Firebase
+        firebase.initializeApp(firebaseConfig);
+        const database = firebase.database();
+
+        // Reference to your data in Firebase
+        const noticeRef = database.ref('notice/index');
+
+        // Fetch data from Firebase
+        noticeRef.on('value', (snapshot) => {
+            const data = snapshot.val();
+        if(data){
+            document.getElementById('notice-box').style.display = "flex"
+            document.getElementById('notice-box').innerHTML = data
+        }
+        })
+
+     </script>
     
 
 
