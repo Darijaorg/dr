@@ -3,6 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+<link rel="shortcut icon" href="https://i.ibb.co/QpG1Q6n/Darija-logo.png" type="image/x-icon">
+   
     <title>Darija Search</title>
     <style>
         body {
@@ -17,6 +20,29 @@
            
             margin: 0;
         }
+        
+.re {
+    position: fixed;
+    top: 20px;
+    left: 20px;
+    color: #333;
+    text-decoration: none;
+}
+
+i {
+    font-size: 24px;
+    color: #333;
+    background-color: #fff;
+    border-radius: 50%;
+    padding: 10px;
+    transition: background-color .3s, color .3s;
+}
+
+i:hover {
+    background-color: #eaeaea;
+    color: #ff5722;
+    cursor: pointer;
+}
         .logo{
             font-weight: 700;
             
@@ -66,11 +92,43 @@
         }
         .word:hover{
             background-color: rgb(248, 248, 248);
-            transition: all .3s ease;
+            
+            height: fit-content;
+            transition: height 1.5s ease-in-out, opacity 1s ease-in-out, max-height 1.5s ease-in-out;
+
+
         }
+        .word:hover #showMore {
+            display: block;
+            transition: all.3s ease;
+         animation: expandHeight 1.5s ease-in-out forwards;
+  
+         overflow-y: scroll;
+
+        }
+        #showMore{
+            transition: all.3s ease;
+
+            display: none;
+        }
+
+        @keyframes expandHeight {
+    from {
+        max-height: 0;
+        opacity: 0;
+    }
+    to {
+        max-height: 500px;  /* Adjust this to a value that fits your content */
+        opacity: 1;
+    }
+}
+
+
     </style>
 </head>
 <body>
+    <i  class="fa fa-arrow-left re" id="re"></i>
+
     <h1 class="logo">Darija <span>Search</span> </h1>
     <div class="container">
         <div class="search-container">
@@ -134,6 +192,7 @@
                 let content = `<div  class="result word" tt="${item.type}" id="${id}">
                     <h2>${item.word} (${item.type})</h2>
                     <p>Translation: ${item.translation}</p>`;
+                content += '<div id="showMore"'
 
                 if (item.details) content += `<p>Details: ${item.details}</p>`;
                 if (item.example) content += `<p>Example: ${item.example}</p>`;
@@ -157,6 +216,7 @@
                     content += `<h3>Plural Pronouns:</h3><div>${formatPronouns(item['prounouns-plural'])}</div>`;
                 }
 
+                content += '</div>';
                 content += '</div>';
                 resultsDiv.innerHTML += content;
             }
@@ -182,14 +242,14 @@
 
         function generateRedirectUrl(type, id) {
             if (type === 'noun') {
-                return `https://darijaorg.github.io/dr/noun.html?id=${id}`;
+                return `noun.html?id=${id}&search=true`;
             } else if (type === 'verb') {
-                return `https://darijaorg.github.io/dr/verb.html?id=${id}`;
+                return `verb.html?id=${id}&search=true`;
             } else {
-                return `https://darijaorg.github.io/dr/word.html?id=${id}`;
+                return `word.html?id=${id}&search=true`;
             }
         }
-
+        
 
         document.querySelector('body').addEventListener('click' ,
 
@@ -206,26 +266,37 @@
             }*/
 
 
-
-            if (event.target.classList.contains("result") && event.target.classList.contains("word")) {
-                 console.log("Clicked element has class 'result word'");
+     
+            if (event.target.classList.contains("result") && event.target.classList.contains("word") ) {
                  const id = e.target.id
                  const type = e.target.getAttribute('tt')
                  const url = generateRedirectUrl(type , id)
                   window.location.href = url
+
+               
             }
-       
             else if (event.target.closest(".result.word")) {
-                    const id = e.target.id
-                    const type = e.target.getAttribute('tt')
+                const thetarget = event.target.closest(".result.word")
+
+              
+                    const id = thetarget.id
+                    const type = thetarget.getAttribute('tt')
                     const url = generateRedirectUrl(type , id)
 
                     window.location.href = url
+                    
             }
 
 
 
         }
+        )
+    </script>
+    <script>
+        document.getElementById('re').addEventListener('click'
+            , () =>{
+                window.location.href = "index.html"
+            }
         )
     </script>
 </body>
