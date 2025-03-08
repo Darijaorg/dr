@@ -124,7 +124,6 @@ justify-content: center;
 
 .search-bar {
     position: relative;
-    margin: 0 auto; /* Centers the search bar */
     margin-bottom: 10px; /* Adds spacing below */
 border: none !important;
 }
