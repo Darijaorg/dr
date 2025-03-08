@@ -112,7 +112,10 @@
             if(key[2] === 'v'){
                
                 const newElement = document.createElement('p');
-                newElement.innerHTML = `${key.substring(0 , 6)}-<span>${data[key]['word']}</span>-${data[key]['translation']}`;
+                newElement.innerHTML = `<span>${data[key]['word']}</span><em>(${data[key]['translation']})<em>`
+                newElement.id = key ; 
+
+
                 verbsDiv.appendChild(newElement);
 
 
@@ -122,7 +125,11 @@
             else if(key[2] ==='n') {
                 
                 const newElement = document.createElement('p');
-                newElement.innerHTML = `${key.substring(0 , 6)}-<span>${data[key]['word']}</span>-${data[key]['translation']}`;
+               
+                
+                newElement.innerHTML = `<span>${data[key]['word']}</span><em>(${data[key]['translation']})<em>`
+                newElement.id = key ; 
+
 
                 nounsDiv.appendChild(newElement);
 
@@ -134,7 +141,9 @@
             else if (key[2] === 'p') {
                 
                 const newElement = document.createElement('p');
-                newElement.innerHTML = `${key.substring(0 , 9)}-<span>${data[key]['word']}</span>-${data[key]['translation']}`;
+                newElement.innerHTML = `<span>${data[key]['word']}</span><em>(${data[key]['translation']})<em>`
+                newElement.id = key ; 
+
 
                 pronounsDiv.appendChild(newElement);
 
@@ -146,7 +155,9 @@
             else if(key.substring(2, 5) === 'adj'){
                 
                 const newElement = document.createElement('p');
-                newElement.innerHTML = `${key.substring(0 , 5)}-<span>${data[key]['word']}</span>-${data[key]['translation']}`;
+                newElement.innerHTML = `<span>${data[key]['word']}</span><em>(${data[key]['translation']})<em>`
+                newElement.id = key ; 
+
 
                 adjsDiv.appendChild(newElement);
 
@@ -162,7 +173,8 @@
             else if(key.substring(2, 5) === 'adv'){
                 
                 const newElement = document.createElement('p');
-                newElement.innerHTML = `${key.substring(0 , 5)}-<span>${data[key]['word']}</span>-${data[key]['translation']}`;
+                newElement.innerHTML = `<span>${data[key]['word']}</span><em>(${data[key]['translation']})<em>`
+                newElement.id = key ; 
 
                 advsDiv.appendChild(newElement);
 
@@ -210,15 +222,19 @@
     // Now check if the target is a <p>
     if (targetElement && targetElement.tagName.toLowerCase() === 'p') {
         var text = targetElement.textContent;
+        var id = targetElement.id;
 
-        if (text[2] === 'v') {
-            window.location.href = `verb.html?id=${text}`;
+        if (id[2] === 'v') {
+           
+            window.location.href = `verb.html?id=${id}`;
         } 
-        else if (text[2] === 'n') {
-            window.location.href = `noun.html?id=${text}`;
+        else if (id[2] === 'n') {
+           
+            window.location.href = `noun.html?id=${id}`;
         } 
         else {
-            window.location.href = `word.html?id=${text}`;
+          
+            window.location.href = `word.html?id=${id}`;
         }
     }
 });
