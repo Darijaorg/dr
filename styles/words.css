@@ -129,7 +129,7 @@ border: none !important;
 }
 
 #searchInput {
-    padding: 10px 10px 10px 30px; /* Left padding for icon space */
+    padding: 5px 5px 5px 30px; /* Left padding for icon space */
     font-size: 16px;
     border: 1px solid black;
     border-radius: 5px;
