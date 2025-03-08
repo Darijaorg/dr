@@ -142,3 +142,7 @@ border: none !important;
     transform: translateY(-50%); /* Vertically centers the icon */
     color: #aaa; /* Gray color for the icon */
 }
+
+#title{
+font-size: 20px;
+}
