@@ -123,16 +123,25 @@ justify-content: center;
 
 
 .search-bar {
+    width: 50%;
     position: relative;
     margin-bottom: 10px; /* Adds spacing below */
 border: none !important;
 }
 
 #searchInput {
+    width: 30%;
     padding: 5px 5px 5px 30px; /* Left padding for icon space */
     font-size: 16px;
     border: 1px solid black;
     border-radius: 5px;
+    transition: all .3s ease-in-out;
+
+}
+#searchInput:focus{
+    
+    width: 100%;
+    transition: all .3s ease-in-out;
 }
 
 .search-bar i {
@@ -143,6 +152,3 @@ border: none !important;
     color: #aaa; /* Gray color for the icon */
 }
 
-#title{
-font-size: 20px;
-}
