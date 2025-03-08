@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>darijaWords2024</title>
+    <title>Darija Database</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
@@ -18,15 +18,19 @@
     <a href="index.html"><i class="fa fa-arrow-left"></i> َ</a>
   
     
-    <h1 id="title">Darija-database2024</h1>
+    <h1 id="title">Darija Database</h1>
     <div class="loader-section">
         <div class="loader" id="loader"></div>
 
     </div>
 
+    
 
     <section class="words" id="words">
-        
+        <div class="search-bar">
+            <i class="fa fa-search"></i>
+            <input type="text" id="searchInput" placeholder="Search words...">
+        </div>
 <div id="btns">
     <button id="nounsBtn" >nouns</button>
     <button id="verbsBtn">verbs</button>
@@ -173,7 +177,7 @@
            }
   loader.style.display = 'none'
   container.style.display = 'grid'
-  $('#title').text(`Darija-database2024(${wordsData.length}) :`);
+  $('#title').text(`Darija Database(${wordsData.length}) :`);
 
   $('#nounsLbl').text(`Nouns (${nouns.length}) :`);
 
@@ -294,8 +298,35 @@ $('#advsBtn').on('click' , function(){
 })
 
 
+$('#searchInput').on('input', function() {
+    var query = $(this).val().toLowerCase();
 
+    // Filter all <p> elements based on the search query
+    $('section.words p').each(function() {
+        var text = $(this).text().toLowerCase();
+        if (text.includes(query)) {
+            $(this).show(); // Show matching items
+        } else {
+            $(this).hide(); // Hide non-matching items
+        }
+    });
 
+    // Update labels with the count of visible items in each category
+    var nounCount = $('#nouns p:visible').length;
+    $('#nounsLbl').text(`Nouns (${nounCount}) :`);
+    
+    var verbCount = $('#verbs p:visible').length;
+    $('#verbsLbl').text(`Verbs (${verbCount}) :`);
+    
+    var pronounCount = $('#pronouns p:visible').length;
+    $('#pronounsLbl').text(`Pronouns (${pronounCount}) :`);
+    
+    var adjCount = $('#adjs p:visible').length;
+    $('#adjsLbl').text(`Adjs (${adjCount}) :`);
+    
+    var advCount = $('#adverbs p:visible').length;
+    $('#adverbsLbl').text(`Adverbs (${advCount}) :`);
+});
     </script>
 </body>
 </html>
